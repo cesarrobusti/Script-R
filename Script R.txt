@@ -1,0 +1,35 @@
+library(bibliometrix)
+
+base1 <- convert2df("C:/Users/César Robusti/Downloads/LNLS COMPLETO/Plain Text - Completo/base lnls completa.txt", dbsource = "wos", format = "plaintext")
+
+base2 <- convert2df("C:/Users/César Robusti/Downloads/LNLS COMPLETO/Plain Text - Completo/Novo Documento de Texto.txt", dbsource = "wos", format = "plaintext")
+
+junta <- mergeDbSources(base1, base2, remove.duplicated = TRUE)
+
+write.table(junta, "C:/Users/César Robusti/Downloads/LNLS COMPLETO/Plain Text - Completo/dadosR.csv", sep = ";", row.names = FALSE)
+
+parcial <- junta[,c("DI", "PY", "AU", "TI", "SO", "DT", "DE", "TC", "CR")]
+
+write.table(parcial, "C:/Users/César Robusti/Downloads/LNLS COMPLETO/Plain Text - Completo/dadosRparcial.csv", sep = ";", row.names = FALSE)
+
+Res <- biblioAnalysis(base1)
+
+DS <- summary(object = Res, k = 10)
+
+plot(Res, k = 10)
+
+
+# REDE DE COLABORAÇÃO ENTRE PAÍSES #
+
+M <- metaTagExtraction(base1, Field = "AU_CO", sep = ";")
+NetMatrix <- biblioNetwork(M, analysis = "collaboration", network = "countries", sep = ";")
+
+# Plot the network
+net=networkPlot(NetMatrix, n = dim(NetMatrix)[1], Title = "Country Collaboration", type = "circle", size=TRUE, remove.multiple=FALSE,labelsize=0.7,cluster="none")
+
+# Create a co-citation network
+
+# NetMatrix <- biblioNetwork(M, analysis = "co-citation", network = "references", sep = ";")
+
+# Plot the network
+#net=networkPlot(NetMatrix, n = 30, Title = "Co-Citation Network", type = "fruchterman", size=T, remove.multiple=FALSE, labelsize=0.7,edgesize = 5)
