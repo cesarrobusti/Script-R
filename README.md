@@ -1,4 +1,4 @@
-# Script-R
+# Script-R ![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
 
 - Script elaborado para analisar dados via programação utilizando a linguagem de programação R dentro do software RStudio
 - Analise da base da dados WOS a partir do arquivo PLAIN TEXT
