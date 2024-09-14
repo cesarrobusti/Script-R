@@ -1,23 +1,24 @@
 library(bibliometrix)
 
-base1 <- convert2df("C:/Users/César Robusti/Downloads/LNLS COMPLETO/Plain Text - Completo/base lnls completa.txt", dbsource = "wos", format = "plaintext")
+base1 <- convert2df("C:/Users/cesar/Downloads/Artigo IA SEMEAD/busca bases/pubmed-artificial-set.txt", dbsource = "pubmed", format = "PubMed export file")
 
-base2 <- convert2df("C:/Users/César Robusti/Downloads/LNLS COMPLETO/Plain Text - Completo/Novo Documento de Texto.txt", dbsource = "wos", format = "plaintext")
+base2 <- convert2df("C:/Users/cesar/Downloads/Artigos 2024/Engema/savedrecs.txt", dbsource = "wos", format = "plaintext")
 
-junta <- mergeDbSources(base1, base2, remove.duplicated = TRUE)
+base3 <- convert2df("C:/Users/cesar/Downloads/Artigos 2024/Engema/scopus.csv", dbsource = "scopus", format = "csv")
 
-write.table(junta, "C:/Users/César Robusti/Downloads/LNLS COMPLETO/Plain Text - Completo/dadosR.csv", sep = ";", row.names = FALSE)
+junta <- mergeDbSources(base2, base3, remove.duplicated = TRUE)
+
+write.table(junta, "C:/Users/cesar/Downloads/Artigos 2024/Engema/dadosunificados.csv", sep = ";", row.names = FALSE)
 
 parcial <- junta[,c("DI", "PY", "AU", "TI", "SO", "DT", "DE", "TC", "CR")]
 
-write.table(parcial, "C:/Users/César Robusti/Downloads/LNLS COMPLETO/Plain Text - Completo/dadosRparcial.csv", sep = ";", row.names = FALSE)
+write.table(junta, "C:/Users/cesar/Downloads/Artigo IA SEMEAD/dadosparcial.xlsx", sep = ";", row.names = FALSE)
 
 Res <- biblioAnalysis(base1)
 
 DS <- summary(object = Res, k = 10)
 
 plot(Res, k = 10)
-
 
 # REDE DE COLABORAÇÃO ENTRE PAÍSES #
 
