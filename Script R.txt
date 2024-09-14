@@ -6,7 +6,7 @@ base2 <- convert2df("C:/Users/cesar/Downloads/Artigos 2024/Engema/savedrecs.txt"
 
 base3 <- convert2df("C:/Users/cesar/Downloads/Artigos 2024/Engema/scopus.csv", dbsource = "scopus", format = "csv")
 
-junta <- mergeDbSources(base2, base3, remove.duplicated = TRUE)
+junta <- mergeDbSources(base1, base2, base3, remove.duplicated = TRUE)
 
 write.table(junta, "C:/Users/cesar/Downloads/Artigos 2024/Engema/dadosunificados.csv", sep = ";", row.names = FALSE)
 
